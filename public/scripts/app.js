@@ -4,7 +4,8 @@ console.log('app.js is running');
 
 var app = {
   title: 'The Decider',
-  subtitle: 'Let me choose for you'
+  subtitle: 'Let me choose for you',
+  options: ['One', 'Two']
 };
 
 var template = React.createElement(
@@ -15,10 +16,16 @@ var template = React.createElement(
     null,
     app.title
   ),
+  app.subtitle && React.createElement(
+    'p',
+    null,
+    ' ',
+    app.subtitle
+  ),
   React.createElement(
     'p',
     null,
-    app.subtitle
+    app.options.length > 0 ? 'Here are your options' : 'You have no options'
   ),
   React.createElement(
     'ol',
@@ -36,9 +43,20 @@ var template = React.createElement(
   )
 );
 
+function getLocation(location) {
+  if (location) {
+    return React.createElement(
+      'p',
+      null,
+      'Location: ',
+      location
+    );
+  }
+};
+
 var user = {
   name: 'Brady',
-  age: 23,
+  age: 18,
   location: 'Imperial'
 };
 
@@ -48,20 +66,15 @@ var templateTwo = React.createElement(
   React.createElement(
     'h1',
     null,
-    user.name
+    user.name ? user.name : 'Anonymous'
   ),
-  React.createElement(
+  user.age >= 18 && React.createElement(
     'p',
     null,
-    'Age: ',
+    ' Age : ',
     user.age
   ),
-  React.createElement(
-    'p',
-    null,
-    'location: ',
-    user.location
-  )
+  getLocation(user.location)
 );
 
 var appRoot = document.getElementById('app');
