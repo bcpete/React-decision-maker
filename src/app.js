@@ -3,43 +3,48 @@ console.log('app.js is running');
 const app = {
   title: 'The Decider',
   subtitle: 'Let me choose for you',
-  options: ['One', 'Two']
+  options: []
 };
 
-const template = ( 
-  <div>
-    <h1>{app.title}</h1>
-    {app.subtitle && <p> {app.subtitle}</p>}
-    <p>{app.options.length > 0 ? 'Here are your options' : 'You have no options'}</p>
-    <ol>
-    <li>First item</li>
-    <li>Second item</li>
-    </ol>
-  </div>
-);
+const onFormSubmit = (e) => {
+  e.preventDefault();
 
-let count = 0;
+  const option = e.target.elements.option.value;
 
-const addOne = () => {
-  console.log('add one');
+  if(option){
+    app.options.push(option);
+    e.target.elements.option.value = '';
+    renderIndecisionApp();
+  }
 };
 
-const minusOne = () => {
-  console.log('minus one');
+const removeAll = () => {
+  app.options = [];
+  renderIndecisionApp();
 };
 
-const reset = () => {
-  console.log('reset');
-};
-
-const templateTwo = (
-  <div>
-    <h1>Count: {count}</h1>
-    <button onClick={addOne}>+1</button>
-    <button onClick={minusOne}>-1</button>
-    <button onClick={reset}>Reset</button>
-  </div>
-);
 const appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot);
+const renderIndecisionApp = () => {
+  const template = ( 
+    <div>
+      <h1>{app.title}</h1>
+      {app.subtitle && <p> {app.subtitle}</p>}
+      <p>{app.options.length > 0 ? 'Here are your options' : 'You have no options'}</p>
+      <p>{app.options.length}</p>
+      <button onClick={removeAll}>Remove All</button>
+      <ol>
+        <li>First item</li>
+        <li>Second item</li>
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option"/>
+        <button>Add Option</button>
+      </form>
+    </div>
+  );
+
+  ReactDOM.render(template, appRoot);
+};
+
+renderIndecisionApp();

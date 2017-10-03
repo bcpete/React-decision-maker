@@ -5,83 +5,85 @@ console.log('app.js is running');
 var app = {
   title: 'The Decider',
   subtitle: 'Let me choose for you',
-  options: ['One', 'Two']
+  options: []
 };
 
-var template = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    app.title
-  ),
-  app.subtitle && React.createElement(
-    'p',
-    null,
-    ' ',
-    app.subtitle
-  ),
-  React.createElement(
-    'p',
-    null,
-    app.options.length > 0 ? 'Here are your options' : 'You have no options'
-  ),
-  React.createElement(
-    'ol',
-    null,
-    React.createElement(
-      'li',
-      null,
-      'First item'
-    ),
-    React.createElement(
-      'li',
-      null,
-      'Second item'
-    )
-  )
-);
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
 
-var count = 0;
+  var option = e.target.elements.option.value;
 
-var addOne = function addOne() {
-  console.log('add one');
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = '';
+    renderIndecisionApp();
+  }
 };
 
-var minusOne = function minusOne() {
-  console.log('minus one');
+var removeAll = function removeAll() {
+  app.options = [];
+  renderIndecisionApp();
 };
 
-var reset = function reset() {
-  console.log('reset');
-};
-
-var templateTwo = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    'Count: ',
-    count
-  ),
-  React.createElement(
-    'button',
-    { onClick: addOne },
-    '+1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: minusOne },
-    '-1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: reset },
-    'Reset'
-  )
-);
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot);
+var renderIndecisionApp = function renderIndecisionApp() {
+  var template = React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      app.title
+    ),
+    app.subtitle && React.createElement(
+      'p',
+      null,
+      ' ',
+      app.subtitle
+    ),
+    React.createElement(
+      'p',
+      null,
+      app.options.length > 0 ? 'Here are your options' : 'You have no options'
+    ),
+    React.createElement(
+      'p',
+      null,
+      app.options.length
+    ),
+    React.createElement(
+      'button',
+      { onClick: removeAll },
+      'Remove All'
+    ),
+    React.createElement(
+      'ol',
+      null,
+      React.createElement(
+        'li',
+        null,
+        'First item'
+      ),
+      React.createElement(
+        'li',
+        null,
+        'Second item'
+      )
+    ),
+    React.createElement(
+      'form',
+      { onSubmit: onFormSubmit },
+      React.createElement('input', { type: 'text', name: 'option' }),
+      React.createElement(
+        'button',
+        null,
+        'Add Option'
+      )
+    )
+  );
+
+  ReactDOM.render(template, appRoot);
+};
+
+renderIndecisionApp();
