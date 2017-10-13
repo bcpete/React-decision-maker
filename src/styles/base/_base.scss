@@ -4,5 +4,10 @@ html {
 
 body {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 1.6rem;
+  font-size: $m-size;
+  background: black;
+  background: -webkit-radial-gradient($dark-to-darker-blue); 
+  background: -o-radial-gradient($dark-to-darker-blue); 
+  background: -moz-radial-gradient($dark-to-darker-blue);  
+  background: radial-gradient($dark-to-darker-blue);
 }
