@@ -66,6 +66,13 @@ export default class IndecisionApp extends React.Component{
     }));
   };
 
+  handleClearSelectedOption = () => {
+    this.setState(() => ({
+      selectedOption: undefined,
+      options: []
+    }));
+  };
+
   render(){
     const subTitle = "A web app for the indecisive";
 
@@ -85,6 +92,8 @@ export default class IndecisionApp extends React.Component{
         <AddOption handleAddOption={this.handleAddOption}/>
         <OptionModal 
           selectedOption={this.state.selectedOption}
+          handleClearSelectedOption={this.handleClearSelectedOption}
+          handleDeleteOptions={this.handleDeleteOptions}
         />
       </div>
     );
