@@ -11,3 +11,12 @@ body {
   background: -moz-radial-gradient($dark-to-darker-blue);  
   background: radial-gradient($dark-to-darker-blue);
 }
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor:default;
+  opacity: .5;
+}

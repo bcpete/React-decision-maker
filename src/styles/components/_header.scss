@@ -6,14 +6,14 @@
 
 .header__title {
   color: $light-blue;
-  text-shadow: $t-shadow $light-pink;
-  font-size: $l-size;
+  text-shadow: $t-shadow darken($light-pink, 10%);
+  font-size: $xl-size;
   margin: 0;
 }
 
 .header__subtitle {
   color: $light-blue;
-  text-shadow: $t-shadow $dark-pink;
+  text-shadow: $t-shadow darken($light-pink, 10%);
   font-size: $m-size;
   font-weight:500;
   margin: 0;
